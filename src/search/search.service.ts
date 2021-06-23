@@ -9,7 +9,21 @@ export class SearchService {
     private readonly configService: ConfigService,
   ) {}
 
-  async createIndex() {
+  public async createIndex() {
     const index = this.configService.get('ELASTICSEARCH_INDEX');
+    const checkIndex = await this.esService.indices.exists({ index });
+    if (checkIndex.statusCode === 404) {
+      this.esService.indices.create(
+        {
+          index,
+          body: {},
+        },
+        (err: any) => {
+          if (err) {
+            console.log(err);
+          }
+        },
+      );
+    }
   }
 }

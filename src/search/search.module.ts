@@ -16,6 +16,7 @@ import { SearchService } from './search.service';
       inject: [ConfigService],
     }),
   ],
+  providers: [SearchService],
   exports: [ElasticsearchModule],
 })
 export class SearchModule implements OnModuleInit {
