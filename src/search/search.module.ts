@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
+import { SearchService } from './search.service';
 
 @Module({
   imports: [
@@ -17,4 +18,9 @@ import { ElasticsearchModule } from '@nestjs/elasticsearch';
   ],
   exports: [ElasticsearchModule],
 })
-export class SearchModule {}
+export class SearchModule implements OnModuleInit {
+  constructor(private readonly searchService: SearchService) {}
+  public async onModuleInit() {
+    await this.searchService.createIndex();
+  }
+}

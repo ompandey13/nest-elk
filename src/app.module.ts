@@ -12,6 +12,7 @@ import Joi from 'joi';
         NODE_ENV: Joi.string().required(),
         PORT: Joi.number(),
         ELASTICSEARCH_NODE: Joi.string().required(),
+        ELASTICSEARCH_INDEX: Joi.string().required(),
       }),
     }),
   ],
